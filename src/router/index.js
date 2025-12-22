@@ -5,6 +5,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
+import Dept from '../views/Dept.vue'
 
 const routes = [
   {
@@ -23,6 +24,14 @@ const routes = [
   {
     path: '/home',
     redirect: '/'
+  },
+  {
+    path: '/dept',
+    name: 'Dept',
+    component: Dept,
+    meta: {
+      requiresAuth: true // 需要登录
+    }
   }
 ]
 

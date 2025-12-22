@@ -2,8 +2,8 @@
  * API 接口封装
  */
 
-import { get, post, del } from './request.js'
-import { API_PATHS, STORAGE_KEYS } from './config.js'
+import { get, post, put, del } from './request.js'
+import { API_PATHS, STORAGE_KEYS, SYSTEM_API_BASE_URL } from './config.js'
 
 /**
  * 认证相关 API
@@ -118,7 +118,96 @@ export const authApi = {
   }
 }
 
+/**
+ * 部门相关 API
+ */
+export const deptApi = {
+  /**
+   * 查询所有部门列表
+   * @returns {Promise<Object>}
+   */
+  async getAllList() {
+    return await get(API_PATHS.DEPT.LIST, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 查询部门树
+   * @returns {Promise<Object>}
+   */
+  async getTree() {
+    return await get(API_PATHS.DEPT.TREE, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 分页查询部门
+   * @param {Object} params - 查询参数
+   * @param {Object} params.condition - 查询条件
+   * @param {string} params.condition.deptName - 部门名称（可选）
+   * @param {string} params.condition.status - 状态（可选）
+   * @param {Object} params.pagination - 分页信息
+   * @param {number} params.pagination.pageNum - 页码
+   * @param {number} params.pagination.pageSize - 每页大小
+   * @param {Array} params.pagination.sorts - 排序字段列表（可选）
+   * @returns {Promise<Object>}
+   */
+  async getPage(params) {
+    return await post(API_PATHS.DEPT.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 根据 ID 查询部门
+   * @param {string} id - 部门 ID
+   * @returns {Promise<Object>}
+   */
+  async getById(id) {
+    return await get(API_PATHS.DEPT.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 新增部门
+   * @param {Object} data - 部门数据
+   * @param {string} data.deptName - 部门名称
+   * @param {string} data.parentId - 父节点 ID
+   * @param {number} data.sortOrder - 排序
+   * @param {string} data.status - 部门状态 (NORMAL/LOCKED)
+   * @returns {Promise<Object>}
+   */
+  async create(data) {
+    return await post(API_PATHS.DEPT.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 修改部门
+   * @param {string} id - 部门 ID
+   * @param {Object} data - 部门数据
+   * @returns {Promise<Object>}
+   */
+  async update(id, data) {
+    return await put(API_PATHS.DEPT.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 删除部门
+   * @param {string[]} ids - 部门 ID 数组
+   * @returns {Promise<Object>}
+   */
+  async delete(ids) {
+    return await del(API_PATHS.DEPT.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 更新部门状态
+   * @param {string} status - 状态 (NORMAL/LOCKED)
+   * @param {string[]} ids - 部门 ID 数组
+   * @returns {Promise<Object>}
+   */
+  async updateStatus(status, ids) {
+    return await put(API_PATHS.DEPT.UPDATE_STATUS(status), ids, { baseUrl: SYSTEM_API_BASE_URL })
+  }
+}
+
 export default {
-  auth: authApi
+  auth: authApi,
+  dept: deptApi
 }
 

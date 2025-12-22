@@ -81,17 +81,20 @@ async function handleResponse(response) {
  * 发送 HTTP 请求
  * @param {string} url - 请求 URL
  * @param {Object} options - 请求选项
+ * @param {string} options.baseUrl - 可选的基础 URL，如果不提供则使用默认的 API_BASE_URL
  * @returns {Promise<any>}
  */
 export async function request(url, options = {}) {
-  const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`
+  const { baseUrl, ...requestOptions } = options
+  const base = baseUrl || API_BASE_URL
+  const fullUrl = url.startsWith('http') ? url : `${base}${url}`
 
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 30000)
 
   try {
     const config = createRequestConfig({
-      ...options,
+      ...requestOptions,
       signal: controller.signal
     })
 
@@ -138,12 +141,24 @@ export function post(url, data, options = {}) {
 }
 
 /**
- * DELETE 请求
+ * PUT 请求
  * @param {string} url - 请求 URL
+ * @param {any} data - 请求数据
  * @param {Object} options - 请求选项
  * @returns {Promise<any>}
  */
-export function del(url, options = {}) {
-  return request(url, { ...options, method: 'DELETE' })
+export function put(url, data, options = {}) {
+  return request(url, { ...options, method: 'PUT', body: data })
+}
+
+/**
+ * DELETE 请求
+ * @param {string} url - 请求 URL
+ * @param {any} data - 请求数据（可选）
+ * @param {Object} options - 请求选项
+ * @returns {Promise<any>}
+ */
+export function del(url, data, options = {}) {
+  return request(url, { ...options, method: 'DELETE', body: data })
 }
 
