@@ -214,11 +214,12 @@ async function handleLogin() {
       errorMessage.value = '密码加密失败，请重试'
       ElMessage.error('密码加密失败，请重试')
       return
-    } finally {
-      if (!encryptedPassword) {
-        loading.value = false
-        return
-      }
+    }
+
+    if (!encryptedPassword) {
+      errorMessage.value = '密码加密失败，请重试'
+      ElMessage.error('密码加密失败，请重试')
+      return
     }
 
     const response = await authApi.login({
