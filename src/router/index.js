@@ -6,6 +6,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Dept from '../views/Dept.vue'
+import Configuration from '../views/Configuration.vue'
+import User from '../views/User.vue'
+import Role from '../views/Role.vue'
 
 const routes = [
   {
@@ -29,6 +32,30 @@ const routes = [
     path: '/dept',
     name: 'Dept',
     component: Dept,
+    meta: {
+      requiresAuth: true // 需要登录
+    }
+  },
+  {
+    path: '/configuration',
+    name: 'Configuration',
+    component: Configuration,
+    meta: {
+      requiresAuth: true // 需要登录
+    }
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: User,
+    meta: {
+      requiresAuth: true // 需要登录
+    }
+  },
+  {
+    path: '/role',
+    name: 'Role',
+    component: Role,
     meta: {
       requiresAuth: true // 需要登录
     }

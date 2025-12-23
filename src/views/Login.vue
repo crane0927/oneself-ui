@@ -271,7 +271,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #ffffff;
   padding: 20px;
 }
 
@@ -383,6 +383,77 @@ onMounted(() => {
     width: 100%;
     min-width: auto;
   }
+}
+
+</style>
+
+<style>
+/* 夜间模式 - 登录页面 */
+body.dark-mode .login-container {
+  background: #141414;
+}
+
+/* 夜间模式 - 登录页面卡片背景 */
+body.dark-mode .login-box {
+  background-color: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .login-box .el-card__header {
+  background-color: #1d1e1f !important;
+  border-bottom-color: #2d2d2d !important;
+}
+
+body.dark-mode .login-box .el-card__body {
+  background-color: #1d1e1f !important;
+}
+
+body.dark-mode .login-box .system-title {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .login-box .el-form-item__label {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .login-box .el-input__inner {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .login-box .el-input__inner::placeholder {
+  color: #909399 !important;
+}
+
+body.dark-mode .login-box .el-input__inner:focus {
+  border-color: #409eff !important;
+}
+
+body.dark-mode .login-box .captcha-image-wrapper {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .login-box .copyright {
+  color: #909399 !important;
+}
+
+/* 夜间模式 - 登录页面按钮样式 */
+body.dark-mode .login-box .el-button--primary {
+  background-color: #409eff;
+  border-color: #409eff;
+  color: #fff;
+}
+
+body.dark-mode .login-box .el-button--primary:hover {
+  background-color: #66b1ff;
+  border-color: #66b1ff;
+}
+
+body.dark-mode .login-box .el-button--primary:focus {
+  background-color: #66b1ff;
+  border-color: #66b1ff;
 }
 </style>
 

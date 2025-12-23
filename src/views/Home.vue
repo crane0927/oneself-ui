@@ -128,5 +128,41 @@ onMounted(() => {
 .info-section {
   margin-top: 16px;
 }
+
+/* 夜间模式样式 */
+:deep(.dark-mode) .welcome-header h2,
+body.dark-mode .welcome-header h2 {
+  color: #e5eaf3 !important;
+}
+
+:deep(.dark-mode) .welcome-text,
+body.dark-mode .welcome-text {
+  color: #a8abb2 !important;
+}
+
+/* 夜间模式 - el-descriptions 样式 */
+body.dark-mode .info-section :deep(.el-descriptions__table) {
+  background-color: #1d1e1f !important;
+}
+
+body.dark-mode .info-section :deep(.el-descriptions__label) {
+  background-color: #2d2d2d !important;
+  color: #a8abb2 !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .info-section :deep(.el-descriptions__content) {
+  background-color: #1d1e1f !important;
+  color: #e5eaf3 !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .info-section :deep(.el-descriptions__table .el-descriptions__cell) {
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .info-section :deep(.el-descriptions__table.is-bordered .el-descriptions__cell) {
+  border-color: #2d2d2d !important;
+}
 </style>
 

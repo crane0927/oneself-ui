@@ -73,3 +73,749 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* 夜间模式 - Element Plus 组件样式覆盖 */
+body.dark-mode .el-card {
+  background-color: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-card__header {
+  background-color: #1d1e1f !important;
+  border-bottom-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-card__body {
+  background-color: #1d1e1f !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-table {
+  background-color: #1d1e1f !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-table th.el-table__cell {
+  background-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+  border-bottom-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-table td.el-table__cell {
+  background-color: #1d1e1f !important;
+  color: #e5eaf3 !important;
+  border-bottom-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-table tr {
+  background-color: #1d1e1f !important;
+}
+
+body.dark-mode .el-table--striped .el-table__body tr.el-table__row--striped td {
+  background-color: #252525 !important;
+}
+
+body.dark-mode .el-table--striped .el-table__body tr.el-table__row--striped:hover td {
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-table__body tr:hover > td {
+  background-color: #2d2d2d !important;
+}
+
+/* 夜间模式 - 输入框样式 */
+body.dark-mode .el-input {
+  --el-input-bg-color: #2d2d2d !important;
+  --el-input-border-color: #2d2d2d !important;
+  --el-input-text-color: #e5eaf3 !important;
+  --el-input-placeholder-color: #909399 !important;
+}
+
+body.dark-mode .el-input__inner {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-input__inner::placeholder {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-input__inner:hover {
+  border-color: #3d3d3d !important;
+}
+
+body.dark-mode .el-input__inner:focus {
+  border-color: #409eff !important;
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  box-shadow: 0 0 0 1px #2d2d2d inset !important;
+}
+
+body.dark-mode .el-input__wrapper:hover {
+  box-shadow: 0 0 0 1px #3d3d3d inset !important;
+}
+
+body.dark-mode .el-input.is-focus .el-input__wrapper {
+  box-shadow: 0 0 0 1px #409eff inset !important;
+}
+
+body.dark-mode .el-input__prefix,
+body.dark-mode .el-input__suffix {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-input__suffix-inner .el-icon {
+  color: #909399 !important;
+}
+
+/* 夜间模式 - 选择框样式 */
+body.dark-mode .el-select {
+  --el-select-input-color: #e5eaf3 !important;
+  --el-select-multiple-input-color: #e5eaf3 !important;
+  --el-select-input-focus-border-color: #409eff !important;
+  --el-select-input-focus-border-color-hover: #409eff !important;
+}
+
+body.dark-mode .el-select .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  box-shadow: 0 0 0 1px #2d2d2d inset !important;
+}
+
+body.dark-mode .el-select .el-input__wrapper:hover {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  box-shadow: 0 0 0 1px #3d3d3d inset !important;
+}
+
+body.dark-mode .el-select.is-focus .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  box-shadow: 0 0 0 1px #409eff inset !important;
+}
+
+body.dark-mode .el-select .el-input__inner {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select .el-input__inner:hover {
+  border-color: #3d3d3d !important;
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+body.dark-mode .el-select .el-input__inner:focus {
+  border-color: #409eff !important;
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+body.dark-mode .el-select .el-input.is-focus .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  box-shadow: 0 0 0 1px #409eff inset !important;
+}
+
+body.dark-mode .el-select .el-input__suffix {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-select .el-input__suffix .el-icon {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-select .el-input__suffix-inner {
+  color: #909399 !important;
+}
+
+/* 下拉菜单容器 - 使用更高优先级确保覆盖 */
+body.dark-mode .el-select-dropdown,
+body.dark-mode .el-popper[data-popper-placement],
+body.dark-mode .el-popper__wrapper {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark-mode .el-select-dropdown__wrap {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+body.dark-mode .el-select-dropdown__list {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+body.dark-mode .el-select-dropdown__item {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select-dropdown__item:hover {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select-dropdown__item.selected {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  color: #409eff !important;
+  font-weight: 500;
+}
+
+body.dark-mode .el-select-dropdown__item.is-disabled {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  color: #606266 !important;
+  cursor: not-allowed !important;
+}
+
+body.dark-mode .el-select-dropdown__item.is-disabled:hover {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+body.dark-mode .el-select-dropdown__empty {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  color: #909399 !important;
+}
+
+body.dark-mode .el-popper.is-dark {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-popper__arrow::before {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+/* 确保所有 popper 容器都是深色 */
+body.dark-mode .el-popper {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+body.dark-mode .el-popper[data-popper-placement] {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+/* 夜间模式 - 选择框通用样式覆盖（确保所有变体都被覆盖） */
+body.dark-mode .el-select-v2__wrapper {
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-select-v2__placeholder {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-select-v2__input {
+  background-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select-v2__selection {
+  background-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select-v2__tags {
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-select-v2__tags .el-tag {
+  background-color: #3d3d3d !important;
+  border-color: #3d3d3d !important;
+  color: #e5eaf3 !important;
+}
+
+/* 确保选择框输入框在所有情况下都是深色 */
+body.dark-mode .el-select .el-input,
+body.dark-mode .el-select .el-input__wrapper,
+body.dark-mode .el-select .el-input__inner {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select .el-input.is-focus .el-input__wrapper,
+body.dark-mode .el-select.is-focus .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  box-shadow: 0 0 0 1px #409eff inset !important;
+}
+
+/* 强制覆盖选择框背景，使用更高优先级 */
+body.dark-mode .el-select .el-input__wrapper::before {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+body.dark-mode .el-select .el-input__wrapper::after {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+/* 确保下拉选项容器是深色 - 使用更高优先级 */
+body.dark-mode .el-select-dropdown,
+body.dark-mode .el-select-dropdown__wrap,
+body.dark-mode .el-select-dropdown__list,
+body.dark-mode .el-select-dropdown__item,
+body.dark-mode .el-popper[data-popper-placement] .el-select-dropdown,
+body.dark-mode .el-popper[data-popper-placement] .el-select-dropdown__wrap,
+body.dark-mode .el-popper[data-popper-placement] .el-select-dropdown__list,
+body.dark-mode .el-popper[data-popper-placement] .el-select-dropdown__item {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+body.dark-mode .el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  color: #409eff !important;
+}
+
+/* 确保选择框的所有内部元素都是深色 */
+body.dark-mode .el-select .el-input__wrapper,
+body.dark-mode .el-select .el-input__inner,
+body.dark-mode .el-select .el-input.is-focus .el-input__wrapper,
+body.dark-mode .el-select.is-focus .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+/* 确保下拉菜单的所有变体都是深色 */
+body.dark-mode .el-select-dropdown,
+body.dark-mode .el-select-dropdown.el-popper,
+body.dark-mode .el-select-dropdown.is-multiple,
+body.dark-mode .el-select-dropdown__wrap,
+body.dark-mode .el-select-dropdown__list,
+body.dark-mode .el-select-dropdown__item {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+/* 全局覆盖所有 popper 下拉菜单 */
+body.dark-mode [class*="el-popper"],
+body.dark-mode [class*="el-select-dropdown"],
+body.dark-mode [class*="el-dropdown-menu"] {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+/* 确保下拉菜单的滚动条区域也是深色 */
+body.dark-mode .el-select-dropdown__wrap .el-scrollbar__wrap {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+body.dark-mode .el-select-dropdown__wrap .el-scrollbar__view {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+/* 夜间模式 - 数字输入框（排序框）样式 */
+body.dark-mode .el-input-number {
+  --el-input-number-controls-bg-color: #2d2d2d !important;
+  --el-input-number-controls-border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-input-number .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  box-shadow: 0 0 0 1px #2d2d2d inset !important;
+}
+
+body.dark-mode .el-input-number .el-input__wrapper:hover {
+  box-shadow: 0 0 0 1px #3d3d3d inset !important;
+}
+
+body.dark-mode .el-input-number.is-focus .el-input__wrapper {
+  box-shadow: 0 0 0 1px #409eff inset !important;
+}
+
+body.dark-mode .el-input-number .el-input__inner {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+  text-align: center;
+}
+
+body.dark-mode .el-input-number .el-input__inner:hover {
+  border-color: #3d3d3d !important;
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-input-number .el-input__inner:focus {
+  border-color: #409eff !important;
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-input-number__decrease,
+body.dark-mode .el-input-number__increase {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-input-number__decrease:hover,
+body.dark-mode .el-input-number__increase:hover {
+  background-color: #3d3d3d !important;
+  border-color: #3d3d3d !important;
+  color: #409eff !important;
+}
+
+body.dark-mode .el-input-number__decrease.is-disabled,
+body.dark-mode .el-input-number__increase.is-disabled {
+  background-color: #1d1e1f !important;
+  border-color: #1d1e1f !important;
+  color: #606266 !important;
+  cursor: not-allowed !important;
+}
+
+body.dark-mode .el-input-number__decrease.is-disabled:hover,
+body.dark-mode .el-input-number__increase.is-disabled:hover {
+  background-color: #1d1e1f !important;
+  border-color: #1d1e1f !important;
+  color: #606266 !important;
+}
+
+body.dark-mode .el-input-number .el-input__suffix {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-input-number .el-input__suffix .el-icon {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-form-item__label {
+  color: #e5eaf3 !important;
+}
+
+/* 夜间模式 - 分页样式 */
+body.dark-mode .el-pagination {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__total {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-pagination .el-pager li {
+  background-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-pagination .el-pager li:hover {
+  background-color: #3d3d3d !important;
+  color: #409eff !important;
+}
+
+body.dark-mode .el-pagination .el-pager li.is-active {
+  background-color: #409eff !important;
+  color: #fff !important;
+  border-color: #409eff !important;
+  font-weight: 500;
+}
+
+body.dark-mode .el-pagination button {
+  background-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-pagination button:hover {
+  background-color: #3d3d3d !important;
+  color: #409eff !important;
+  border-color: #3d3d3d !important;
+}
+
+body.dark-mode .el-pagination button:disabled {
+  background-color: #1d1e1f !important;
+  color: #606266 !important;
+  border-color: #1d1e1f !important;
+  cursor: not-allowed !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__sizes .el-select .el-input__inner {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__sizes .el-select .el-input__inner:hover {
+  border-color: #3d3d3d !important;
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__sizes .el-select .el-input__wrapper {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__sizes .el-select .el-input__wrapper:hover {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__jump {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__jump .el-input__inner {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__jump .el-input__inner:hover {
+  border-color: #3d3d3d !important;
+}
+
+body.dark-mode .el-pagination .el-pagination__jump .el-input__inner:focus {
+  border-color: #409eff !important;
+}
+
+body.dark-mode .el-tag {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-tag--success {
+  background-color: rgba(103, 194, 58, 0.2) !important;
+  border-color: rgba(103, 194, 58, 0.3) !important;
+  color: #67c23a !important;
+}
+
+body.dark-mode .el-tag--danger {
+  background-color: rgba(245, 108, 108, 0.2) !important;
+  border-color: rgba(245, 108, 108, 0.3) !important;
+  color: #f56c6c !important;
+}
+
+body.dark-mode .el-dialog {
+  background-color: #1d1e1f !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-dialog__header {
+  border-bottom-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-dialog__title {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-dialog__body {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-message-box {
+  background-color: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-message-box__title {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-message-box__content {
+  color: #e5eaf3 !important;
+}
+
+/* 夜间模式 - 文本域样式 */
+body.dark-mode .el-textarea__inner {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-textarea__inner::placeholder {
+  color: #909399 !important;
+}
+
+body.dark-mode .el-textarea__inner:hover {
+  border-color: #3d3d3d !important;
+}
+
+body.dark-mode .el-textarea__inner:focus {
+  border-color: #409eff !important;
+}
+
+/* 夜间模式 - 输入框组样式 */
+body.dark-mode .el-input-group__prepend,
+body.dark-mode .el-input-group__append {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-input-group__prepend .el-select .el-input__inner,
+body.dark-mode .el-input-group__append .el-select .el-input__inner {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* 夜间模式 - 日期选择器样式 */
+body.dark-mode .el-date-editor .el-input__inner {
+  background-color: #2d2d2d !important;
+  border-color: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-picker__popper {
+  background-color: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-date-picker__header-label {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-picker-panel__content {
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-date-table td.available:hover {
+  color: #409eff !important;
+}
+
+body.dark-mode .el-date-table td.current:not(.disabled) {
+  color: #409eff !important;
+}
+
+body.dark-mode .el-date-table td.today span {
+  color: #409eff !important;
+  font-weight: 700;
+}
+
+body.dark-mode .el-date-table td.selected span {
+  background-color: #409eff !important;
+  color: #fff !important;
+}
+
+/* 夜间模式 - el-descriptions 样式 */
+body.dark-mode .el-descriptions {
+  background-color: #1d1e1f !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-descriptions__table {
+  background-color: #1d1e1f !important;
+}
+
+body.dark-mode .el-descriptions__label {
+  background-color: #2d2d2d !important;
+  color: #a8abb2 !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-descriptions__content {
+  background-color: #1d1e1f !important;
+  color: #e5eaf3 !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-descriptions__table .el-descriptions__cell {
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-descriptions__table.is-bordered .el-descriptions__cell {
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-descriptions__table.is-bordered .el-descriptions__label {
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-descriptions__table.is-bordered .el-descriptions__content {
+  border-color: #2d2d2d !important;
+}
+
+/* 夜间模式 - 全局下拉框样式覆盖（确保所有下拉框都正确显示） */
+/* 使用最高优先级覆盖所有可能的变体 */
+body.dark-mode .el-select-dropdown,
+body.dark-mode .el-select-dropdown.el-popper,
+body.dark-mode .el-select-dropdown.is-multiple,
+body.dark-mode .el-select-dropdown.is-multiple.el-popper,
+body.dark-mode div[class*="el-select-dropdown"],
+body.dark-mode div[class*="el-popper"][class*="select"] {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+/* 确保下拉框的所有子元素都是深色 */
+body.dark-mode .el-select-dropdown *,
+body.dark-mode .el-select-dropdown__wrap *,
+body.dark-mode .el-select-dropdown__list * {
+  background-color: transparent !important;
+}
+
+body.dark-mode .el-select-dropdown__wrap,
+body.dark-mode .el-select-dropdown__list {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+}
+
+body.dark-mode .el-select-dropdown__item {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select-dropdown__item:hover {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  color: #e5eaf3 !important;
+}
+
+body.dark-mode .el-select-dropdown__item.selected {
+  background-color: #2d2d2d !important;
+  background: #2d2d2d !important;
+  color: #409eff !important;
+}
+
+/* 确保所有 popper 容器都是深色 */
+body.dark-mode .el-popper,
+body.dark-mode .el-popper[data-popper-placement],
+body.dark-mode .el-popper.is-dark,
+body.dark-mode div.el-popper {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+/* 确保 popper 箭头也是深色 */
+body.dark-mode .el-popper__arrow::before {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}
+
+body.dark-mode .el-popper__arrow::after {
+  background-color: #1d1e1f !important;
+  background: #1d1e1f !important;
+  border-color: #2d2d2d !important;
+}

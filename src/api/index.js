@@ -206,8 +206,243 @@ export const deptApi = {
   }
 }
 
+/**
+ * 参数配置相关 API
+ */
+export const configurationApi = {
+  /**
+   * 分页查询参数配置
+   * @param {Object} params - 查询参数
+   * @param {Object} params.condition - 查询条件（可选）
+   * @param {string} params.condition.name - 配置名称（可选）
+   * @param {string} params.condition.paramKey - 参数键（可选）
+   * @param {string} params.condition.type - 配置类型（可选）
+   * @param {Object} params.pagination - 分页信息
+   * @param {number} params.pagination.pageNum - 页码
+   * @param {number} params.pagination.pageSize - 每页大小
+   * @param {Array} params.pagination.sorts - 排序字段列表（可选）
+   * @returns {Promise<Object>}
+   */
+  async getPage(params) {
+    return await post(API_PATHS.CONFIGURATION.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 根据 ID 查询参数配置
+   * @param {string} id - 配置 ID
+   * @returns {Promise<Object>}
+   */
+  async getById(id) {
+    return await get(API_PATHS.CONFIGURATION.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 新增参数配置
+   * @param {Object} data - 配置数据
+   * @param {string} data.name - 配置名称
+   * @param {string} data.paramKey - 参数键
+   * @param {string} data.paramValue - 参数值
+   * @param {string} data.type - 配置类型 (SYSTEM/BUSINESS)
+   * @param {string} data.remark - 备注信息（可选）
+   * @returns {Promise<Object>}
+   */
+  async create(data) {
+    return await post(API_PATHS.CONFIGURATION.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 修改参数配置
+   * @param {string} id - 配置 ID
+   * @param {Object} data - 配置数据
+   * @returns {Promise<Object>}
+   */
+  async update(id, data) {
+    return await put(API_PATHS.CONFIGURATION.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 删除参数配置
+   * @param {string[]} ids - 配置 ID 数组
+   * @returns {Promise<Object>}
+   */
+  async delete(ids) {
+    return await del(API_PATHS.CONFIGURATION.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
+  }
+}
+
+/**
+ * 用户相关 API
+ */
+export const userApi = {
+  /**
+   * 分页查询用户
+   * @param {Object} params - 查询参数
+   * @param {Object} params.condition - 查询条件（可选）
+   * @param {string} params.condition.username - 用户名（可选）
+   * @param {string} params.condition.realName - 真实姓名（可选）
+   * @param {string} params.condition.status - 状态（可选）
+   * @param {string} params.condition.deptId - 部门ID（可选）
+   * @param {Object} params.pagination - 分页信息
+   * @param {number} params.pagination.pageNum - 页码
+   * @param {number} params.pagination.pageSize - 每页大小
+   * @param {Array} params.pagination.sorts - 排序字段列表（可选）
+   * @returns {Promise<Object>}
+   */
+  async getPage(params) {
+    return await post(API_PATHS.USER.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 根据 ID 查询用户
+   * @param {string} id - 用户 ID
+   * @returns {Promise<Object>}
+   */
+  async getById(id) {
+    return await get(API_PATHS.USER.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 新增用户
+   * @param {Object} data - 用户数据
+   * @param {string} data.username - 用户名
+   * @param {string} data.email - 邮箱（可选）
+   * @param {string} data.phone - 手机号（可选）
+   * @param {string} data.realName - 真实姓名（可选）
+   * @param {string} data.sex - 性别 (UNKNOWN/MALE/FEMALE)
+   * @param {string} data.type - 用户类型 (ADMIN/NORMAL)
+   * @param {string} data.deptId - 所属部门ID（可选）
+   * @param {string} data.status - 状态 (NORMAL/LOCKED)
+   * @returns {Promise<Object>}
+   */
+  async create(data) {
+    return await post(API_PATHS.USER.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 修改用户
+   * @param {string} id - 用户 ID
+   * @param {Object} data - 用户数据
+   * @returns {Promise<Object>}
+   */
+  async update(id, data) {
+    return await put(API_PATHS.USER.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 删除用户
+   * @param {string[]} ids - 用户 ID 数组
+   * @returns {Promise<Object>}
+   */
+  async delete(ids) {
+    return await del(API_PATHS.USER.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 更新用户状态
+   * @param {string} status - 状态 (NORMAL/LOCKED)
+   * @param {string[]} ids - 用户 ID 数组
+   * @returns {Promise<Object>}
+   */
+  async updateStatus(status, ids) {
+    return await put(API_PATHS.USER.UPDATE_STATUS(status), ids, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 根据部门ID查询用户
+   * @param {string} deptId - 部门 ID
+   * @returns {Promise<Object>}
+   */
+  async getListByDept(deptId) {
+    return await get(API_PATHS.USER.LIST_BY_DEPT(deptId), { baseUrl: SYSTEM_API_BASE_URL })
+  }
+}
+
+/**
+ * 角色相关 API
+ */
+export const roleApi = {
+  /**
+   * 查询所有角色列表
+   * @returns {Promise<Object>}
+   */
+  async getAllList() {
+    return await get(API_PATHS.ROLE.LIST, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 分页查询角色
+   * @param {Object} params - 查询参数
+   * @param {Object} params.condition - 查询条件（可选）
+   * @param {string} params.condition.roleCode - 角色编码（可选）
+   * @param {string} params.condition.roleName - 角色名称（可选）
+   * @param {string} params.condition.status - 状态（可选）
+   * @param {Object} params.pagination - 分页信息
+   * @param {number} params.pagination.pageNum - 页码
+   * @param {number} params.pagination.pageSize - 每页大小
+   * @param {Array} params.pagination.sorts - 排序字段列表（可选）
+   * @returns {Promise<Object>}
+   */
+  async getPage(params) {
+    return await post(API_PATHS.ROLE.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 根据 ID 查询角色
+   * @param {string} id - 角色 ID
+   * @returns {Promise<Object>}
+   */
+  async getById(id) {
+    return await get(API_PATHS.ROLE.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 新增角色
+   * @param {Object} data - 角色数据
+   * @param {string} data.roleCode - 角色编码
+   * @param {string} data.roleName - 角色名称
+   * @param {string} data.description - 角色描述（可选）
+   * @param {string} data.status - 状态 (NORMAL/LOCKED)
+   * @returns {Promise<Object>}
+   */
+  async create(data) {
+    return await post(API_PATHS.ROLE.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 修改角色
+   * @param {string} id - 角色 ID
+   * @param {Object} data - 角色数据
+   * @returns {Promise<Object>}
+   */
+  async update(id, data) {
+    return await put(API_PATHS.ROLE.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 删除角色
+   * @param {string[]} ids - 角色 ID 数组
+   * @returns {Promise<Object>}
+   */
+  async delete(ids) {
+    return await del(API_PATHS.ROLE.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
+  },
+
+  /**
+   * 更新角色状态
+   * @param {string} status - 状态 (NORMAL/LOCKED)
+   * @param {string[]} ids - 角色 ID 数组
+   * @returns {Promise<Object>}
+   */
+  async updateStatus(status, ids) {
+    return await put(API_PATHS.ROLE.UPDATE_STATUS(status), ids, { baseUrl: SYSTEM_API_BASE_URL })
+  }
+}
+
 export default {
   auth: authApi,
-  dept: deptApi
+  dept: deptApi,
+  configuration: configurationApi,
+  user: userApi,
+  role: roleApi
 }
 

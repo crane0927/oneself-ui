@@ -33,6 +33,34 @@ export const API_PATHS = {
     UPDATE: (id) => `/dept/${id}`,
     DELETE: '/dept',
     UPDATE_STATUS: (status) => `/dept/status/${status}`
+  },
+  // 参数配置相关
+  CONFIGURATION: {
+    PAGE: '/configuration/page',
+    GET: (id) => `/configuration/${id}`,
+    CREATE: '/configuration',
+    UPDATE: (id) => `/configuration/${id}`,
+    DELETE: '/configuration'
+  },
+  // 用户相关
+  USER: {
+    PAGE: '/user/page',
+    GET: (id) => `/user/${id}`,
+    CREATE: '/user',
+    UPDATE: (id) => `/user/${id}`,
+    DELETE: '/user',
+    UPDATE_STATUS: (status) => `/user/status/${status}`,
+    LIST_BY_DEPT: (deptId) => `/user/list/by/dept/${deptId}`
+  },
+  // 角色相关
+  ROLE: {
+    LIST: '/role/list/all',
+    PAGE: '/role/page',
+    GET: (id) => `/role/${id}`,
+    CREATE: '/role',
+    UPDATE: (id) => `/role/${id}`,
+    DELETE: '/role',
+    UPDATE_STATUS: (status) => `/role/status/${status}`
   }
 }
 
