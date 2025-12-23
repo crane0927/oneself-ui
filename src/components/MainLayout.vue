@@ -1,5 +1,11 @@
 <template>
-  <el-container class="main-layout" :class="{ 'top-menu-layout': menuPosition === 'top', 'dark-mode': isDarkMode }">
+  <el-container
+    class="main-layout"
+    :class="{
+      'top-menu-layout': menuPosition === 'top',
+      'dark-mode': isDarkMode,
+    }"
+  >
     <!-- 左侧菜单布局 -->
     <template v-if="menuPosition === 'left'">
       <el-aside :width="isCollapse ? '64px' : '200px'" class="sidebar">
@@ -73,9 +79,9 @@
                 :title="isDarkMode ? '切换到日间模式' : '切换到夜间模式'"
               />
               <el-avatar :size="32" class="user-avatar">
-                {{ userInfo?.username?.charAt(0)?.toUpperCase() || 'U' }}
+                {{ userInfo?.username?.charAt(0)?.toUpperCase() || "U" }}
               </el-avatar>
-              <span class="username">{{ userInfo?.username || '用户' }}</span>
+              <span class="username">{{ userInfo?.username || "用户" }}</span>
               <el-button
                 type="danger"
                 plain
@@ -156,9 +162,9 @@
                 :title="isDarkMode ? '切换到日间模式' : '切换到夜间模式'"
               />
               <el-avatar :size="32" class="user-avatar">
-                {{ userInfo?.username?.charAt(0)?.toUpperCase() || 'U' }}
+                {{ userInfo?.username?.charAt(0)?.toUpperCase() || "U" }}
               </el-avatar>
-              <span class="username">{{ userInfo?.username || '用户' }}</span>
+              <span class="username">{{ userInfo?.username || "用户" }}</span>
               <el-button
                 type="danger"
                 plain
@@ -181,9 +187,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ref, computed, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { ElMessage, ElMessageBox } from "element-plus";
 import {
   HomeFilled,
   OfficeBuilding,
@@ -196,126 +202,125 @@ import {
   Tools,
   Menu,
   Sunny,
-  Moon
-} from '@element-plus/icons-vue'
-import { authApi } from '../api/index.js'
-import { STORAGE_KEYS } from '../api/config.js'
+  Moon,
+} from "@element-plus/icons-vue";
+import { authApi } from "../api/index.js";
+import { STORAGE_KEYS } from "../api/config.js";
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
-const isCollapse = ref(false)
-const userInfo = ref(null)
-const menuPosition = ref('left') // 'left' 或 'top'
-const isDarkMode = ref(false) // 主题模式：false=日间，true=夜间
+const isCollapse = ref(false);
+const userInfo = ref(null);
+const menuPosition = ref("left"); // 'left' 或 'top'
+const isDarkMode = ref(false); // 主题模式：false=日间，true=夜间
 
 // 从 localStorage 加载菜单位置偏好
-const MENU_POSITION_KEY = 'menu_position'
-const THEME_KEY = 'theme_mode'
+const MENU_POSITION_KEY = "menu_position";
+const THEME_KEY = "theme_mode";
 
 // 当前激活的菜单
 const activeMenu = computed(() => {
-  return route.path
-})
+  return route.path;
+});
 
 // 切换侧边栏折叠
 function toggleCollapse() {
-  isCollapse.value = !isCollapse.value
+  isCollapse.value = !isCollapse.value;
 }
 
 // 切换菜单位置
 function toggleMenuPosition() {
-  menuPosition.value = menuPosition.value === 'left' ? 'top' : 'left'
-  localStorage.setItem(MENU_POSITION_KEY, menuPosition.value)
+  menuPosition.value = menuPosition.value === "left" ? "top" : "left";
+  localStorage.setItem(MENU_POSITION_KEY, menuPosition.value);
 }
 
 // 切换主题模式
 function toggleTheme() {
-  isDarkMode.value = !isDarkMode.value
-  localStorage.setItem(THEME_KEY, isDarkMode.value ? 'dark' : 'light')
+  isDarkMode.value = !isDarkMode.value;
+  localStorage.setItem(THEME_KEY, isDarkMode.value ? "dark" : "light");
   // 应用到 body 元素，方便全局样式控制
   if (isDarkMode.value) {
-    document.body.classList.add('dark-mode')
+    document.body.classList.add("dark-mode");
   } else {
-    document.body.classList.remove('dark-mode')
+    document.body.classList.remove("dark-mode");
   }
 }
 
 // 菜单选择处理
 function handleMenuSelect(key) {
-  router.push(key)
+  router.push(key);
 }
 
 // 获取用户信息
 function loadUserInfo() {
-  const userInfoStr = localStorage.getItem(STORAGE_KEYS.USER_INFO)
+  const userInfoStr = localStorage.getItem(STORAGE_KEYS.USER_INFO);
   if (userInfoStr) {
     try {
-      userInfo.value = JSON.parse(userInfoStr)
+      userInfo.value = JSON.parse(userInfoStr);
     } catch (e) {
       userInfo.value = {
-        username: userInfoStr
-      }
+        username: userInfoStr,
+      };
     }
   } else {
     userInfo.value = {
-      username: '用户'
-    }
+      username: "用户",
+    };
   }
 }
 
 // 退出登录
 async function handleLogout() {
   try {
-    await ElMessageBox.confirm(
-      '确定要退出登录吗？',
-      '退出确认',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }
-    )
+    await ElMessageBox.confirm("确定要退出登录吗？", "退出确认", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning",
+    });
 
     try {
-      await authApi.logout()
-      ElMessage.success('退出成功')
+      await authApi.logout();
+      ElMessage.success("退出成功");
     } catch (error) {
-      console.error('退出登录失败:', error)
-      if (error.name === 'CORS_ERROR' || error.message?.includes('Failed to fetch')) {
-        console.warn('网络错误，执行本地退出')
+      console.error("退出登录失败:", error);
+      if (
+        error.name === "CORS_ERROR" ||
+        error.message?.includes("Failed to fetch")
+      ) {
+        console.warn("网络错误，执行本地退出");
       }
     }
 
-    localStorage.removeItem(STORAGE_KEYS.TOKEN)
-    localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN)
-    localStorage.removeItem(STORAGE_KEYS.USER_INFO)
-    router.push('/login')
+    localStorage.removeItem(STORAGE_KEYS.TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.USER_INFO);
+    router.push("/login");
   } catch (error) {
-    if (error === 'cancel') {
-      return
+    if (error === "cancel") {
+      return;
     }
-    console.error('退出登录失败:', error)
+    console.error("退出登录失败:", error);
   }
 }
 
 onMounted(() => {
-  loadUserInfo()
+  loadUserInfo();
   // 加载菜单位置偏好
-  const savedPosition = localStorage.getItem(MENU_POSITION_KEY)
-  if (savedPosition === 'top' || savedPosition === 'left') {
-    menuPosition.value = savedPosition
+  const savedPosition = localStorage.getItem(MENU_POSITION_KEY);
+  if (savedPosition === "top" || savedPosition === "left") {
+    menuPosition.value = savedPosition;
   }
   // 加载主题偏好
-  const savedTheme = localStorage.getItem(THEME_KEY)
-  if (savedTheme === 'dark') {
-    isDarkMode.value = true
-    document.body.classList.add('dark-mode')
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme === "dark") {
+    isDarkMode.value = true;
+    document.body.classList.add("dark-mode");
   } else {
-    isDarkMode.value = false
-    document.body.classList.remove('dark-mode')
+    isDarkMode.value = false;
+    document.body.classList.remove("dark-mode");
   }
-})
+});
 </script>
 
 <style scoped>
@@ -873,4 +878,3 @@ onMounted(() => {
   color: #ffd700;
 }
 </style>
-

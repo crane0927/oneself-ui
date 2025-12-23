@@ -2,8 +2,8 @@
  * API 接口封装
  */
 
-import { get, post, put, del } from './request.js'
-import { API_PATHS, STORAGE_KEYS, SYSTEM_API_BASE_URL } from './config.js'
+import { get, post, put, del } from "./request.js";
+import { API_PATHS, STORAGE_KEYS, SYSTEM_API_BASE_URL } from "./config.js";
 
 /**
  * 认证相关 API
@@ -14,7 +14,7 @@ export const authApi = {
    * @returns {Promise<Object>} 返回 { captchaId, captchaImage }
    */
   async getCaptcha() {
-    return await get(API_PATHS.AUTH.CAPTCHA)
+    return await get(API_PATHS.AUTH.CAPTCHA);
   },
 
   /**
@@ -27,63 +27,87 @@ export const authApi = {
    * @returns {Promise<Object>}
    */
   async login(params) {
-    const response = await post(API_PATHS.AUTH.LOGIN, params)
+    const response = await post(API_PATHS.AUTH.LOGIN, params);
 
-    console.log('登录响应:', response)
+    console.log("登录响应:", response);
+
+    // 统一处理业务状态码（例如 { msgCode, message, data }）
+    if (
+      response &&
+      typeof response === "object" &&
+      "msgCode" in response &&
+      response.msgCode !== 200
+    ) {
+      const error = new Error(response.message || "登录失败");
+      error.code = response.msgCode;
+      error.data = response;
+      throw error;
+    }
 
     // 保存令牌
     // 登录返回的 data 直接作为 token 使用
-    let token = null
+    let token = null;
     if (response.data) {
       // 如果 data 是字符串，直接作为 token
-      if (typeof response.data === 'string') {
-        token = response.data
+      if (typeof response.data === "string") {
+        token = response.data;
       } else if (response.data.token) {
-        token = response.data.token
+        token = response.data.token;
       } else if (response.data.accessToken) {
-        token = response.data.accessToken
+        token = response.data.accessToken;
       }
     } else if (response.token) {
-      token = response.token
+      token = response.token;
     } else if (response.accessToken) {
-      token = response.accessToken
+      token = response.accessToken;
     }
 
     if (token) {
-      localStorage.setItem(STORAGE_KEYS.TOKEN, token)
-      console.log('保存 token 到 localStorage:', token.substring(0, 20) + '...')
+      localStorage.setItem(STORAGE_KEYS.TOKEN, token);
+      console.log(
+        "保存 token 到 localStorage:",
+        token.substring(0, 20) + "..."
+      );
     } else {
-      console.warn('登录响应中未找到 token')
+      console.warn("登录响应中未找到 token");
     }
 
     // 保存刷新令牌
     if (response.data?.refreshToken) {
-      localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken)
+      localStorage.setItem(
+        STORAGE_KEYS.REFRESH_TOKEN,
+        response.data.refreshToken
+      );
     } else if (response.refreshToken) {
-      localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.refreshToken)
+      localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.refreshToken);
     }
 
     // 保存用户信息
-    let userInfo = null
+    let userInfo = null;
     if (response.data?.user) {
-      userInfo = response.data.user
-    } else if (response.data && typeof response.data === 'object' && !response.data.token && !response.data.accessToken) {
+      userInfo = response.data.user;
+    } else if (
+      response.data &&
+      typeof response.data === "object" &&
+      !response.data.token &&
+      !response.data.accessToken
+    ) {
       // 如果 data 是对象且不是 token，可能是用户信息
-      userInfo = response.data
+      userInfo = response.data;
     } else if (response.user) {
-      userInfo = response.user
+      userInfo = response.user;
     } else {
       // 如果没有用户信息，至少保存用户名
       userInfo = {
-        username: params.username
-      }
+        username: params.username,
+      };
     }
 
     if (userInfo) {
-      localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo))
+      localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo));
     }
 
-    return response
+    return response;
   },
 
   /**
@@ -91,14 +115,14 @@ export const authApi = {
    * @returns {Promise<Object>}
    */
   async logout() {
-    const response = await del(API_PATHS.AUTH.LOGOUT)
+    const response = await del(API_PATHS.AUTH.LOGOUT);
 
     // 清除本地存储的认证信息
-    localStorage.removeItem(STORAGE_KEYS.TOKEN)
-    localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN)
-    localStorage.removeItem(STORAGE_KEYS.USER_INFO)
+    localStorage.removeItem(STORAGE_KEYS.TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.USER_INFO);
 
-    return response
+    return response;
   },
 
   /**
@@ -106,17 +130,17 @@ export const authApi = {
    * @returns {Promise<Object>}
    */
   async refreshToken() {
-    const response = await post(API_PATHS.AUTH.REFRESH)
+    const response = await post(API_PATHS.AUTH.REFRESH);
 
     if (response.data) {
-      localStorage.setItem(STORAGE_KEYS.TOKEN, response.data)
+      localStorage.setItem(STORAGE_KEYS.TOKEN, response.data);
     } else if (response.token) {
-      localStorage.setItem(STORAGE_KEYS.TOKEN, response.token)
+      localStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
     }
 
-    return response
-  }
-}
+    return response;
+  },
+};
 
 /**
  * 部门相关 API
@@ -127,7 +151,7 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async getAllList() {
-    return await get(API_PATHS.DEPT.LIST, { baseUrl: SYSTEM_API_BASE_URL })
+    return await get(API_PATHS.DEPT.LIST, { baseUrl: SYSTEM_API_BASE_URL });
   },
 
   /**
@@ -135,7 +159,7 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async getTree() {
-    return await get(API_PATHS.DEPT.TREE, { baseUrl: SYSTEM_API_BASE_URL })
+    return await get(API_PATHS.DEPT.TREE, { baseUrl: SYSTEM_API_BASE_URL });
   },
 
   /**
@@ -151,7 +175,9 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async getPage(params) {
-    return await post(API_PATHS.DEPT.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.DEPT.PAGE, params, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -160,7 +186,7 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async getById(id) {
-    return await get(API_PATHS.DEPT.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+    return await get(API_PATHS.DEPT.GET(id), { baseUrl: SYSTEM_API_BASE_URL });
   },
 
   /**
@@ -173,7 +199,9 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async create(data) {
-    return await post(API_PATHS.DEPT.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.DEPT.CREATE, data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -183,7 +211,9 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async update(id, data) {
-    return await put(API_PATHS.DEPT.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await put(API_PATHS.DEPT.UPDATE(id), data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -192,7 +222,9 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async delete(ids) {
-    return await del(API_PATHS.DEPT.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
+    return await del(API_PATHS.DEPT.DELETE, ids, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -202,9 +234,11 @@ export const deptApi = {
    * @returns {Promise<Object>}
    */
   async updateStatus(status, ids) {
-    return await put(API_PATHS.DEPT.UPDATE_STATUS(status), ids, { baseUrl: SYSTEM_API_BASE_URL })
-  }
-}
+    return await put(API_PATHS.DEPT.UPDATE_STATUS(status), ids, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
+  },
+};
 
 /**
  * 参数配置相关 API
@@ -224,7 +258,9 @@ export const configurationApi = {
    * @returns {Promise<Object>}
    */
   async getPage(params) {
-    return await post(API_PATHS.CONFIGURATION.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.CONFIGURATION.PAGE, params, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -233,7 +269,9 @@ export const configurationApi = {
    * @returns {Promise<Object>}
    */
   async getById(id) {
-    return await get(API_PATHS.CONFIGURATION.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+    return await get(API_PATHS.CONFIGURATION.GET(id), {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -247,7 +285,9 @@ export const configurationApi = {
    * @returns {Promise<Object>}
    */
   async create(data) {
-    return await post(API_PATHS.CONFIGURATION.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.CONFIGURATION.CREATE, data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -257,7 +297,9 @@ export const configurationApi = {
    * @returns {Promise<Object>}
    */
   async update(id, data) {
-    return await put(API_PATHS.CONFIGURATION.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await put(API_PATHS.CONFIGURATION.UPDATE(id), data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -266,9 +308,11 @@ export const configurationApi = {
    * @returns {Promise<Object>}
    */
   async delete(ids) {
-    return await del(API_PATHS.CONFIGURATION.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
-  }
-}
+    return await del(API_PATHS.CONFIGURATION.DELETE, ids, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
+  },
+};
 
 /**
  * 用户相关 API
@@ -289,7 +333,9 @@ export const userApi = {
    * @returns {Promise<Object>}
    */
   async getPage(params) {
-    return await post(API_PATHS.USER.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.USER.PAGE, params, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -298,7 +344,7 @@ export const userApi = {
    * @returns {Promise<Object>}
    */
   async getById(id) {
-    return await get(API_PATHS.USER.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+    return await get(API_PATHS.USER.GET(id), { baseUrl: SYSTEM_API_BASE_URL });
   },
 
   /**
@@ -315,7 +361,9 @@ export const userApi = {
    * @returns {Promise<Object>}
    */
   async create(data) {
-    return await post(API_PATHS.USER.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.USER.CREATE, data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -325,7 +373,9 @@ export const userApi = {
    * @returns {Promise<Object>}
    */
   async update(id, data) {
-    return await put(API_PATHS.USER.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await put(API_PATHS.USER.UPDATE(id), data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -334,7 +384,9 @@ export const userApi = {
    * @returns {Promise<Object>}
    */
   async delete(ids) {
-    return await del(API_PATHS.USER.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
+    return await del(API_PATHS.USER.DELETE, ids, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -344,7 +396,9 @@ export const userApi = {
    * @returns {Promise<Object>}
    */
   async updateStatus(status, ids) {
-    return await put(API_PATHS.USER.UPDATE_STATUS(status), ids, { baseUrl: SYSTEM_API_BASE_URL })
+    return await put(API_PATHS.USER.UPDATE_STATUS(status), ids, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -353,9 +407,11 @@ export const userApi = {
    * @returns {Promise<Object>}
    */
   async getListByDept(deptId) {
-    return await get(API_PATHS.USER.LIST_BY_DEPT(deptId), { baseUrl: SYSTEM_API_BASE_URL })
-  }
-}
+    return await get(API_PATHS.USER.LIST_BY_DEPT(deptId), {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
+  },
+};
 
 /**
  * 角色相关 API
@@ -366,7 +422,7 @@ export const roleApi = {
    * @returns {Promise<Object>}
    */
   async getAllList() {
-    return await get(API_PATHS.ROLE.LIST, { baseUrl: SYSTEM_API_BASE_URL })
+    return await get(API_PATHS.ROLE.LIST, { baseUrl: SYSTEM_API_BASE_URL });
   },
 
   /**
@@ -383,7 +439,9 @@ export const roleApi = {
    * @returns {Promise<Object>}
    */
   async getPage(params) {
-    return await post(API_PATHS.ROLE.PAGE, params, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.ROLE.PAGE, params, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -392,7 +450,7 @@ export const roleApi = {
    * @returns {Promise<Object>}
    */
   async getById(id) {
-    return await get(API_PATHS.ROLE.GET(id), { baseUrl: SYSTEM_API_BASE_URL })
+    return await get(API_PATHS.ROLE.GET(id), { baseUrl: SYSTEM_API_BASE_URL });
   },
 
   /**
@@ -405,7 +463,9 @@ export const roleApi = {
    * @returns {Promise<Object>}
    */
   async create(data) {
-    return await post(API_PATHS.ROLE.CREATE, data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await post(API_PATHS.ROLE.CREATE, data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -415,7 +475,9 @@ export const roleApi = {
    * @returns {Promise<Object>}
    */
   async update(id, data) {
-    return await put(API_PATHS.ROLE.UPDATE(id), data, { baseUrl: SYSTEM_API_BASE_URL })
+    return await put(API_PATHS.ROLE.UPDATE(id), data, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -424,7 +486,9 @@ export const roleApi = {
    * @returns {Promise<Object>}
    */
   async delete(ids) {
-    return await del(API_PATHS.ROLE.DELETE, ids, { baseUrl: SYSTEM_API_BASE_URL })
+    return await del(API_PATHS.ROLE.DELETE, ids, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
   },
 
   /**
@@ -434,15 +498,16 @@ export const roleApi = {
    * @returns {Promise<Object>}
    */
   async updateStatus(status, ids) {
-    return await put(API_PATHS.ROLE.UPDATE_STATUS(status), ids, { baseUrl: SYSTEM_API_BASE_URL })
-  }
-}
+    return await put(API_PATHS.ROLE.UPDATE_STATUS(status), ids, {
+      baseUrl: SYSTEM_API_BASE_URL,
+    });
+  },
+};
 
 export default {
   auth: authApi,
   dept: deptApi,
   configuration: configurationApi,
   user: userApi,
-  role: roleApi
-}
-
+  role: roleApi,
+};

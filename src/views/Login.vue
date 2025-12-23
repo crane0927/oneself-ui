@@ -85,7 +85,7 @@
             style="width: 100%"
             size="large"
           >
-            {{ loading ? '登录中...' : '登录' }}
+            {{ loading ? "登录中..." : "登录" }}
           </el-button>
         </el-form-item>
       </el-form>
@@ -107,162 +107,163 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { User, Lock, View, Hide } from '@element-plus/icons-vue'
-import { authApi } from '../api/index.js'
-import { encryptPassword } from '../utils/crypto.js'
+import { ref, reactive, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
+import { User, Lock, View, Hide } from "@element-plus/icons-vue";
+import { authApi } from "../api/index.js";
+import { encryptPassword } from "../utils/crypto.js";
 
-const router = useRouter()
-const formRef = ref(null)
+const router = useRouter();
+const formRef = ref(null);
 
-const loading = ref(false)
-const loadingCaptcha = ref(false)
-const showPassword = ref(false)
-const errorMessage = ref('')
-const captchaId = ref('')
-const captchaImage = ref('')
+const loading = ref(false);
+const loadingCaptcha = ref(false);
+const showPassword = ref(false);
+const errorMessage = ref("");
+const captchaId = ref("");
+const captchaImage = ref("");
 
 const loginForm = reactive({
-  username: 'crane',
-  password: 'oneself!@#',
-  captchaCode: ''
-})
+  username: "crane",
+  password: "oneself!@#",
+  captchaCode: "",
+});
 
 // 表单验证规则
 const formRules = {
-  username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' }
-  ],
-  password: [
-    { required: true, message: '请输入密码', trigger: 'blur' }
-  ],
+  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  password: [{ required: true, message: "请输入密码", trigger: "blur" }],
   captchaCode: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
-    { len: 4, message: '验证码长度为4位', trigger: 'blur' }
-  ]
-}
+    { required: true, message: "请输入验证码", trigger: "blur" },
+    { len: 4, message: "验证码长度为4位", trigger: "blur" },
+  ],
+};
 
 // 表单验证
 const isFormValid = computed(() => {
-  return loginForm.username &&
-         loginForm.password &&
-         loginForm.captchaCode &&
-         captchaId.value
-})
+  return (
+    loginForm.username &&
+    loginForm.password &&
+    loginForm.captchaCode &&
+    captchaId.value
+  );
+});
 
 // 获取验证码
 async function refreshCaptcha() {
-  if (loadingCaptcha.value) return
+  if (loadingCaptcha.value) return;
 
-  loadingCaptcha.value = true
-  errorMessage.value = ''
+  loadingCaptcha.value = true;
+  errorMessage.value = "";
 
   try {
-    const response = await authApi.getCaptcha()
+    const response = await authApi.getCaptcha();
 
     // 根据实际响应结构调整
     if (response.data) {
-      captchaId.value = response.data.captchaId || response.data.id
-      captchaImage.value = response.data.captchaImage || response.data.image
+      captchaId.value = response.data.captchaId || response.data.id;
+      captchaImage.value = response.data.captchaImage || response.data.image;
     } else {
-      captchaId.value = response.captchaId || response.id
-      captchaImage.value = response.captchaImage || response.image
+      captchaId.value = response.captchaId || response.id;
+      captchaImage.value = response.captchaImage || response.image;
     }
 
     // 清空验证码输入
-    loginForm.captchaCode = ''
+    loginForm.captchaCode = "";
   } catch (error) {
-    console.error('获取验证码失败:', error)
-    ElMessage.error('获取验证码失败，请重试')
-    errorMessage.value = '获取验证码失败，请重试'
+    console.error("获取验证码失败:", error);
+    ElMessage.error("获取验证码失败，请重试");
+    errorMessage.value = "获取验证码失败，请重试";
   } finally {
-    loadingCaptcha.value = false
+    loadingCaptcha.value = false;
   }
 }
 
 // 处理登录
 async function handleLogin() {
-  if (!formRef.value) return
+  if (!formRef.value) return;
 
   try {
-    await formRef.value.validate()
+    await formRef.value.validate();
   } catch (error) {
     if (error === false) {
-      errorMessage.value = '请填写完整信息'
-      return
+      errorMessage.value = "请填写完整信息";
+      return;
     }
   }
 
   if (!isFormValid.value) {
-    errorMessage.value = '请填写完整信息'
-    return
+    errorMessage.value = "请填写完整信息";
+    return;
   }
 
-  loading.value = true
-  errorMessage.value = ''
+  loading.value = true;
+  errorMessage.value = "";
 
   try {
     // RSA 加密密码
-    let encryptedPassword
+    let encryptedPassword;
     try {
-      encryptedPassword = encryptPassword(loginForm.password)
-      console.log('密码加密成功')
+      encryptedPassword = encryptPassword(loginForm.password);
+      console.log("密码加密成功");
     } catch (error) {
-      console.error('密码加密失败:', error)
-      errorMessage.value = '密码加密失败，请重试'
-      ElMessage.error('密码加密失败，请重试')
-      return
+      console.error("密码加密失败:", error);
+      errorMessage.value = "密码加密失败，请重试";
+      ElMessage.error("密码加密失败，请重试");
+      return;
     }
 
     if (!encryptedPassword) {
-      errorMessage.value = '密码加密失败，请重试'
-      ElMessage.error('密码加密失败，请重试')
-      return
+      errorMessage.value = "密码加密失败，请重试";
+      ElMessage.error("密码加密失败，请重试");
+      return;
     }
 
     const response = await authApi.login({
       username: loginForm.username,
       password: encryptedPassword,
       captchaId: captchaId.value,
-      captchaCode: loginForm.captchaCode
-    })
+      captchaCode: loginForm.captchaCode,
+    });
 
-    // 登录成功
-    console.log('登录成功，完整响应:', response)
-    console.log('保存的用户信息:', localStorage.getItem('user_info'))
-    ElMessage.success('登录成功')
+    // 登录成功（业务码已经在 authApi.login 内校验）
+    console.log("登录成功，完整响应:", response);
+    console.log("保存的用户信息:", localStorage.getItem("user_info"));
+    ElMessage.success("登录成功");
 
     // 跳转到主页
-    router.push('/')
-
+    router.push("/");
   } catch (error) {
-    console.error('登录失败:', error)
+    console.error("登录失败:", error);
 
-    // 根据错误类型显示不同提示
-    if (error.code === 401 || error.status === 401) {
-      errorMessage.value = '用户名或密码错误'
-      ElMessage.error('用户名或密码错误')
+    // 业务错误（如 msgCode 401 等）优先显示后端返回信息
+    if (error.code === 401) {
+      const msg = error.data?.message || error.message || "用户名或密码错误";
+      errorMessage.value = msg;
+      ElMessage.error(msg);
+    } else if (error.status === 401) {
+      errorMessage.value = error.message || "未授权或登录状态失效";
+      ElMessage.error(errorMessage.value);
     } else if (error.message) {
-      errorMessage.value = error.message
-      ElMessage.error(error.message)
+      errorMessage.value = error.message;
+      ElMessage.error(error.message);
     } else {
-      errorMessage.value = '登录失败，请检查网络连接'
-      ElMessage.error('登录失败，请检查网络连接')
+      errorMessage.value = "登录失败，请检查网络连接";
+      ElMessage.error("登录失败，请检查网络连接");
     }
 
     // 登录失败后刷新验证码
-    await refreshCaptcha()
+    await refreshCaptcha();
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 
 // 组件挂载时获取验证码
 onMounted(() => {
-  refreshCaptcha()
-})
+  refreshCaptcha();
+});
 </script>
 
 <style scoped>
@@ -384,7 +385,6 @@ onMounted(() => {
     min-width: auto;
   }
 }
-
 </style>
 
 <style>
@@ -456,4 +456,3 @@ body.dark-mode .login-box .el-button--primary:focus {
   border-color: #66b1ff;
 }
 </style>
-
