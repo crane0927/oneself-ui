@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -7,19 +7,19 @@ export default defineConfig({
   server: {
     proxy: {
       // 代理认证相关接口
-      '/oneself-auth': {
-        target: 'http://127.0.0.1:8081',
+      "/oneself-auth": {
+        target: "http://127.0.0.1:9100",
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path
+        rewrite: (path) => path,
       },
       // 代理系统管理接口（部门等）
-      '/oneself-system': {
-        target: 'http://127.0.0.1:9101',
+      "/oneself-system": {
+        target: "http://127.0.0.1:9100",
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path
-      }
-    }
-  }
-})
+        rewrite: (path) => path,
+      },
+    },
+  },
+});

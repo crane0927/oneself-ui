@@ -682,15 +682,15 @@ onMounted(() => {
   margin: 0 !important;
 }
 
-/* 夜间模式样式 */
+/* 夜间模式样式（侧边栏导航） */
 .dark-mode .sidebar {
-  background: #1d1e1f;
-  border-right-color: #2d2d2d;
+  background: #050816;
+  border-right-color: #1f2933;
 }
 
 .dark-mode .logo-container {
-  background: #1d1e1f;
-  border-bottom-color: #2d2d2d;
+  background: #050816;
+  border-bottom-color: #1f2933;
 }
 
 .dark-mode .logo-text,
@@ -699,52 +699,87 @@ onMounted(() => {
 }
 
 .dark-mode .sidebar-menu {
-  background: #1d1e1f;
+  background: transparent;
 }
 
-.dark-mode .sidebar-menu :deep(.el-menu-item) {
-  color: #a8abb2;
-}
-
-.dark-mode .sidebar-menu :deep(.el-menu-item:hover) {
-  background-color: #2d2d2d;
-  color: #409eff;
-}
-
-.dark-mode .sidebar-menu :deep(.el-menu-item.is-active) {
-  background-color: #2d2d2d;
-  color: #409eff;
-}
-
+/* 普通菜单项 & 子菜单标题 */
+.dark-mode .sidebar-menu :deep(.el-menu-item),
 .dark-mode .sidebar-menu :deep(.el-sub-menu__title) {
-  color: #a8abb2;
+  color: #9ca3af;
+  background-color: transparent;
 }
 
+/* 悬停态 */
+.dark-mode .sidebar-menu :deep(.el-menu-item:hover),
 .dark-mode .sidebar-menu :deep(.el-sub-menu__title:hover) {
-  background-color: #2d2d2d;
-  color: #409eff;
+  background: rgba(148, 163, 184, 0.12);
+  color: #e5e7eb;
 }
 
-.dark-mode .sidebar-menu :deep(.el-sub-menu.is-opened > .el-sub-menu__title) {
-  color: #409eff;
+/* 激活态：高亮背景 + 左侧渐变条 */
+.dark-mode .sidebar-menu :deep(.el-menu-item.is-active) {
+  position: relative;
+  background: rgba(37, 99, 235, 0.18);
+  color: #60a5fa;
+  font-weight: 600;
 }
 
+.dark-mode .sidebar-menu :deep(.el-menu-item.is-active)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #60a5fa, #a855f7);
+}
+
+/* 子菜单容器（展开时） */
 .dark-mode .sidebar-menu :deep(.el-sub-menu .el-menu) {
-  background: #1d1e1f;
+  background: #050816;
+  border-radius: 0;
 }
 
 .dark-mode .sidebar-menu :deep(.el-sub-menu .el-menu-item) {
-  color: #a8abb2;
+  color: #9ca3af;
 }
 
 .dark-mode .sidebar-menu :deep(.el-sub-menu .el-menu-item:hover) {
-  background-color: #2d2d2d;
-  color: #409eff;
+  background: rgba(148, 163, 184, 0.12);
+  color: #e5e7eb;
 }
 
 .dark-mode .sidebar-menu :deep(.el-sub-menu .el-menu-item.is-active) {
-  background-color: #2d2d2d;
-  color: #409eff;
+  background: rgba(37, 99, 235, 0.18);
+  color: #60a5fa;
+}
+
+/* 图标暗色弱化，激活/悬停更亮 */
+.dark-mode .sidebar-menu :deep(.el-icon) {
+  color: #9ca3af;
+}
+
+.dark-mode .sidebar-menu :deep(.el-menu-item.is-active .el-icon),
+.dark-mode .sidebar-menu :deep(.el-menu-item:hover .el-icon) {
+  color: #60a5fa;
+}
+
+/* 折叠状态下的弹出子菜单 */
+.dark-mode .sidebar-menu :deep(.el-menu--popup) {
+  background: #050816;
+  border: 1px solid #1f2933;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .sidebar-menu :deep(.el-menu--popup .el-menu-item) {
+  color: #9ca3af;
+}
+
+.dark-mode .sidebar-menu :deep(.el-menu--popup .el-menu-item:hover),
+.dark-mode .sidebar-menu :deep(.el-menu--popup .el-menu-item.is-active) {
+  background: rgba(148, 163, 184, 0.12);
+  color: #60a5fa;
 }
 
 .dark-mode .header {
